@@ -1,0 +1,125 @@
+[Version]
+Signature = "$Chicago$"
+Provider  = %3wcad%
+Class     = USB_IC
+ClassGuid = {77989ADF-06DB-4025-92E8-40D902C03B0A}
+DriverVer = 11/25/2010, 2.2.2010.06
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_1A86&PID_5512
+ExcludeFromSelect = USB\VID_4348&PID_5512
+
+[ClassInstall32]
+Addreg = USB_ICReg
+
+[ClassInstall]
+Addreg = USB_ICReg
+
+[USB_ICReg]
+HKR, , , 0, %ClassName%
+HKR, , Icon, , -5
+HKR, , NoInstallClass, , 1
+
+[Manufacturer]
+%3wcad% = 3wcad
+%3wcad% = 3wcad,NTamd64
+%3wcad% = 3wcad,NTia64
+
+[3wcad]
+%CH341A.DeviceDesc% = CH341.Install, USB\VID_1A86&PID_5512
+
+[3wcad.NTamd64]
+%CH341A.DeviceDesc% = CH341.Install.NTamd64, USB\VID_1A86&PID_5512
+
+[3wcad.NTia64]
+%CH341A.DeviceDesc% = CH341.Install.NTia64, USB\VID_1A86&PID_5512
+
+[CH341.Install]
+CopyFiles = CH341.CopyFiles.SYS
+AddReg    = CH341.9X.AddReg, CH341.AddReg
+
+[CH341.Install.NT]
+CopyFiles = CH341.CopyFiles.SYS
+AddReg    = CH341.NT.AddReg, CH341.AddReg
+
+[CH341.Install.NTamd64]
+CopyFiles = CH341.CopyFiles.SYSA64
+AddReg    = CH341.NT.AddReg, CH341.AddReg
+
+[CH341.Install.NTia64]
+CopyFiles = CH341.CopyFiles.SYSI64
+AddReg    = CH341.NT.AddReg, CH341.AddReg
+
+[CH341.CopyFiles.SYS]
+CH341WDM.SYS, , , 2
+
+[CH341.CopyFiles.SYSA64]
+CH341W64.SYS, , , 2
+
+[CH341.9X.AddReg]
+HKR, , DevLoader, , *NTKERN
+HKR, , NTMPDriver, , CH341WDM.SYS
+
+[CH341.NT.AddReg]
+
+[CH341.AddReg]
+HKLM, SOFTWARE\3wcad\IC\CH341, WDM, 0x00010001, 0x00000022
+HKLM, SOFTWARE\3wcad\IC\CH341, Function, , "USB Interface"
+
+[CH341.Install.NT.Services]
+AddService = CH341, 2, CH341.Service
+
+[CH341.Install.NTamd64.Services]
+AddService = CH341, 2, CH341.ServiceA64
+
+[CH341.Install.NTia64.Services]
+AddService = CH341, 2, CH341.ServiceI64
+
+[CH341.Service]
+DisplayName   = "CH341WDM"
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\CH341WDM.SYS
+
+[CH341.ServiceA64]
+DisplayName   = "CH341WDM"
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\CH341W64.SYS
+
+[CH341.ServiceI64]
+DisplayName   = "CH341WDM"
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\CH341I64.SYS
+
+[DestinationDirs]
+DefaultDestDir      = 12
+CH341.CopyFiles.SYS = 12
+CH341.CopyFiles.S64 = 12
+CH341.CopyFiles.I64 = 12
+
+[SourceDisksFiles]
+CH341WDM.SYS  = 1
+
+[SourceDisksNames]
+1 = "USB laser engraving Installation Disk", CH341WDM.SYS, ,
+
+[SourceDisksNames.amd64]
+1 = "USB laser engraving Installation Disk", CH341W64.SYS, ,
+
+[SourceDisksNames.ia64]
+1 = "USB laser engraving Installation Disk", CH341I64.SYS, ,
+
+[Strings]
+ClassName         = "USB motion controller"
+3wcad             = "www.3wcad.com"
+CH341A.DeviceDesc = "USB laser engraving"
+
+[Strings.0804]
+ClassName         = "USB运动控制器"
+3wcad             = "www.3wcad.com"
+CH341A.DeviceDesc = "USB激光雕刻机"
